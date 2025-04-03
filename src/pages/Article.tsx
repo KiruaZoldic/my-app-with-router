@@ -7,6 +7,7 @@ type Data = {
 
 function Article() {
   const data = useLoaderData() as Data;
+  console.log("data", data);
 
   return (
     <article>

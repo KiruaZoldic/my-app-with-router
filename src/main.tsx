@@ -15,6 +15,30 @@ function getWeatherOfTheDay() {
   return Promise.resolve("Sunny with a chance of rain");
 }
 
+const allData = [
+  {
+    id: 1,
+    title: "Lorem Ipsum",
+    content: "Lorem ipsum dolor sit amet",
+  },
+  {
+    id: 2,
+    title: "Schnapsum",
+    content: "Lorem Elsass ipsum Salut bisamme",
+  },
+  {
+    id: 3,
+    title: "Cupcake Ipsum",
+    content: "Tiramisu pastry wafer brownie soufflé",
+  },
+];
+
+type Data = (typeof allData)[0];
+
+function getSomeData(id: number) {
+  return allData.find((article) => article.id === id) as Data | null;
+}
+
 // router creation
 
 const router = createBrowserRouter([
@@ -36,6 +60,10 @@ const router = createBrowserRouter([
       {
         path: "/articles/:id",
         element: <Article />,
+        loader: ({ params }) => {
+          const idAsInt = Number.parseInt(params.id ?? "0");
+          return getSomeData(idAsInt);
+        },
       },
     ],
   },
